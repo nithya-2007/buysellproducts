@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UsedMart</title>
+    <link rel="stylesheet" href="usedmart.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">Used<span>Mart</span></div>
+
+    <div class="search">
+        <input type="text" id="searchBox" placeholder="Search products...">
+        <button onclick="searchProduct()">Search</button>
+    </div>
+
+    <button class="sellBtn" onclick="openSell()">+ Sell Product</button>
+</header>
+
+<section class="hero">
+    <h1>Buy Smart. Sell Easy.</h1>
+    <p>Find quality used products at affordable prices.</p>
+</section>
+
+<section class="products">
+
+    <div class="product" data-name="Laptop">
+        <div class="productImg">💻</div>
+        <h3>Dell Laptop</h3>
+        <p class="price">₹28,000</p>
+        <p>Condition: Good</p>
+        <p>📍 Chennai</p>
+        <button onclick="buyProduct('Dell Laptop')">Buy Now</button>
+    </div>
+
+    <div class="product" data-name="Phone">
+        <div class="productImg">📱</div>
+        <h3>Samsung Phone</h3>
+        <p class="price">₹12,500</p>
+        <p>Condition: Excellent</p>
+        <p>📍 Coimbatore</p>
+        <button onclick="buyProduct('Samsung Phone')">Buy Now</button>
+    </div>
+
+    <div class="product" data-name="Bicycle">
+        <div class="productImg">🚲</div>
+        <h3>Mountain Bicycle</h3>
+        <p class="price">₹6,000</p>
+        <p>Condition: Good</p>
+        <p>📍 Salem</p>
+        <button onclick="buyProduct('Mountain Bicycle')">Buy Now</button>
+    </div>
+
+    <div class="product" data-name="Headphones">
+        <div class="productImg">🎧</div>
+        <h3>Wireless Headphones</h3>
+        <p class="price">₹1,800</p>
+        <p>Condition: Like New</p>
+        <p>📍 Madurai</p>
+        <button onclick="buyProduct('Wireless Headphones')">Buy Now</button>
+    </div>
+
+</section>
+
+<!-- Sell Form -->
+<div class="modal" id="sellModal">
+    <div class="modalBox">
+        <span onclick="closeSell()">×</span>
+
+        <h2>Sell Your Product</h2>
+
+        <input type="text" id="productName" placeholder="Product name">
+        <input type="number" id="productPrice" placeholder="Price">
+        <input type="text" id="productCondition" placeholder="Condition">
+        <input type="text" id="productLocation" placeholder="Location">
+
+        <button onclick="sellProduct()">List Product</button>
+    </div>
+</div>
+
+<div id="toast"></div>
+
+<script src="usedmart.js"></script>
+
+</body>
+</html>
