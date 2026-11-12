@@ -1,30 +1,310 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UsedMart</title>
-    <link rel="stylesheet" href="usedmart.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UsedMart</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f5f5f5;
+    color: #222;
+}
+
+/* HEADER */
+header {
+    min-height: 65px;
+    background: #171717;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 12px 6%;
+    gap: 25px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #ff8a00;
+}
+
+.search {
+    display: flex;
+    flex: 1;
+    max-width: 500px;
+    margin: auto;
+}
+
+.search input {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    outline: none;
+    border-radius: 4px 0 0 4px;
+}
+
+.search button,
+.sellBtn,
+.product button,
+.modalBox button {
+    background: #ff8a00;
+    border: none;
+    padding: 11px 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.search button {
+    border-radius: 0 4px 4px 0;
+}
+
+.sellBtn {
+    color: #111;
+    border-radius: 4px;
+}
+
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 55px 20px;
+    background: white;
+}
+
+.hero h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    color: #666;
+}
+
+/* PRODUCTS */
+.products {
+    width: 88%;
+    margin: 35px auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.product {
+    background: white;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    transition: .2s;
+}
+
+.product:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 5px 15px #00000012;
+}
+
+.productImg {
+    height: 150px;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 65px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.product h3 {
+    margin-bottom: 8px;
+}
+
+.price {
+    color: #ff7300;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.product p {
+    font-size: 13px;
+    margin: 6px 0;
+    color: #555;
+}
+
+.product button {
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+.product button:hover,
+.sellBtn:hover,
+.modalBox button:hover,
+.search button:hover {
+    background: #e97800;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    padding: 15px;
+}
+
+.modalBox {
+    width: 350px;
+    max-width: 100%;
+    background: white;
+    padding: 25px;
+    position: relative;
+    border-radius: 7px;
+}
+
+.modalBox span {
+    position: absolute;
+    right: 15px;
+    top: 8px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.modalBox h2 {
+    margin-bottom: 20px;
+}
+
+.modalBox input {
+    width: 100%;
+    padding: 11px;
+    margin: 7px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.modalBox button {
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+/* TOAST */
+#toast {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: #222;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 5px;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: .3s;
+    z-index: 20;
+    pointer-events: none;
+}
+
+#toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* EMPTY SEARCH */
+.noProducts {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 35px;
+    color: #777;
+    background: white;
+    border-radius: 5px;
+}
+
+/* RESPONSIVE */
+@media(max-width: 900px) {
+    .products {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 600px) {
+    header {
+        padding: 15px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .logo {
+        flex: 1;
+    }
+
+    .search {
+        order: 3;
+        flex-basis: 100%;
+    }
+
+    .sellBtn {
+        padding: 10px;
+    }
+
+    .products {
+        grid-template-columns: 1fr;
+        width: 90%;
+    }
+
+    .hero h1 {
+        font-size: 26px;
+    }
+
+    #toast {
+        right: 15px;
+        left: 15px;
+        text-align: center;
+    }
+}
+</style>
 </head>
+
 <body>
 
+<!-- HEADER -->
 <header>
+
     <div class="logo">Used<span>Mart</span></div>
 
     <div class="search">
-        <input type="text" id="searchBox" placeholder="Search products...">
+        <input type="text" id="searchBox"
+               placeholder="Search products..."
+               onkeydown="if(event.key === 'Enter') searchProduct()">
+
         <button onclick="searchProduct()">Search</button>
     </div>
 
-    <button class="sellBtn" onclick="openSell()">+ Sell Product</button>
+    <button class="sellBtn" onclick="openSell()">
+        + Sell Product
+    </button>
+
 </header>
 
+<!-- HERO -->
 <section class="hero">
     <h1>Buy Smart. Sell Easy.</h1>
     <p>Find quality used products at affordable prices.</p>
 </section>
 
-<section class="products">
+<!-- PRODUCTS -->
+<section class="products" id="productList">
 
     <div class="product" data-name="Laptop">
         <div class="productImg">💻</div>
@@ -64,25 +344,216 @@
 
 </section>
 
-<!-- Sell Form -->
+<!-- SELL FORM -->
 <div class="modal" id="sellModal">
+
     <div class="modalBox">
+
         <span onclick="closeSell()">×</span>
 
         <h2>Sell Your Product</h2>
 
-        <input type="text" id="productName" placeholder="Product name">
-        <input type="number" id="productPrice" placeholder="Price">
-        <input type="text" id="productCondition" placeholder="Condition">
-        <input type="text" id="productLocation" placeholder="Location">
+        <input type="text" id="productName"
+               placeholder="Product name">
+
+        <input type="number" id="productPrice"
+               placeholder="Price">
+
+        <input type="text" id="productCondition"
+               placeholder="Condition">
+
+        <input type="text" id="productLocation"
+               placeholder="Location">
 
         <button onclick="sellProduct()">List Product</button>
+
     </div>
+
 </div>
 
-<div id="toast"></div>
+<!-- TOAST -->
+<div id="toast" role="status" aria-live="polite"></div>
 
-<script src="usedmart.js"></script>
+<script>
+
+/* BUY PRODUCT */
+
+function buyProduct(name) {
+    showToast("✓ " + name + " selected");
+}
+
+
+/* OPEN SELL FORM */
+
+function openSell() {
+    document.getElementById("sellModal").style.display = "flex";
+}
+
+
+/* CLOSE SELL FORM */
+
+function closeSell() {
+    document.getElementById("sellModal").style.display = "none";
+}
+
+
+/* SELL PRODUCT */
+
+function sellProduct() {
+
+    let name = document.getElementById("productName").value.trim();
+
+    let price = document.getElementById("productPrice").value;
+
+    let condition = document.getElementById("productCondition").value.trim();
+
+    let location = document.getElementById("productLocation").value.trim();
+
+    if (name === "" || price === "" || condition === "" || location === "") {
+        showToast("Please enter all product details");
+        return;
+    }
+
+    if (Number(price) <= 0) {
+        showToast("Please enter a valid price");
+        return;
+    }
+
+    // CREATE NEW PRODUCT CARD
+
+    let product = document.createElement("div");
+    product.className = "product";
+
+    product.dataset.name = name;
+
+    let image = document.createElement("div");
+    image.className = "productImg";
+    image.textContent = "📦";
+
+    let title = document.createElement("h3");
+    title.textContent = name;
+
+    let productPrice = document.createElement("p");
+    productPrice.className = "price";
+    productPrice.textContent = "₹" + Number(price).toLocaleString("en-IN");
+
+    let productCondition = document.createElement("p");
+    productCondition.textContent = "Condition: " + condition;
+
+    let productLocation = document.createElement("p");
+    productLocation.textContent = "📍 " + location;
+
+    let buyButton = document.createElement("button");
+    buyButton.textContent = "Buy Now";
+
+    buyButton.addEventListener("click", function() {
+        buyProduct(name);
+    });
+
+    product.append(
+        image,
+        title,
+        productPrice,
+        productCondition,
+        productLocation,
+        buyButton
+    );
+
+    document.getElementById("productList").appendChild(product);
+
+    // CLEAR FORM
+
+    document.getElementById("productName").value = "";
+    document.getElementById("productPrice").value = "";
+    document.getElementById("productCondition").value = "";
+    document.getElementById("productLocation").value = "";
+
+    closeSell();
+
+    showToast("✓ " + name + " listed successfully");
+
+    // SHOW NEW PRODUCT EVEN AFTER A SEARCH
+
+    document.getElementById("searchBox").value = "";
+
+    searchProduct();
+}
+
+
+/* SEARCH PRODUCT */
+
+function searchProduct() {
+
+    let search = document.getElementById("searchBox")
+        .value.trim().toLowerCase();
+
+    let products = document.querySelectorAll(".product");
+
+    let visibleCount = 0;
+
+    products.forEach(product => {
+
+        let name = product.dataset.name.toLowerCase();
+
+        if (name.includes(search)) {
+            product.style.display = "";
+            visibleCount++;
+        } else {
+            product.style.display = "none";
+        }
+
+    });
+
+    let oldMessage = document.querySelector(".noProducts");
+
+    if (oldMessage) {
+        oldMessage.remove();
+    }
+
+    if (visibleCount === 0) {
+
+        let message = document.createElement("div");
+
+        message.className = "noProducts";
+
+        message.textContent = "No products found. Try another search.";
+
+        document.getElementById("productList").appendChild(message);
+    }
+}
+
+
+/* TOAST MESSAGE */
+
+let toastTimer;
+
+function showToast(message) {
+
+    let toast = document.getElementById("toast");
+
+    toast.innerText = message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2000);
+}
+
+
+/* CLOSE MODAL WHEN CLICKING OUTSIDE */
+
+document.getElementById("sellModal").addEventListener("click", function(event) {
+
+    if (event.target === this) {
+        closeSell();
+    }
+
+});
+
+</script>
 
 </body>
 </html>
